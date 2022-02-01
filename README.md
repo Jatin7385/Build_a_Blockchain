@@ -1,4 +1,4 @@
-# BlockChain
+# Building a Blockchain
 Learning about Blockchain by building one!
 
 ## Hash Functions and it's use
