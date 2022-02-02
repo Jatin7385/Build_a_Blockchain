@@ -21,3 +21,13 @@ print(f'The solution is y = {y}')
 ```
 - In bitcoin, the Proof of work algorithm is called Hashcash. It is the algorithm that miners race to solve in order to create new blocks. On solving the algorithm, the miners are rewarded with 1 bitcoin in a transaction
 - ### "The problem being used for this blockchain is: Find a number p that when hashed with the previous block’s solution a hash with 4 leading 0s is produced."
+
+## Our Blockchain as an API
+Our api consists of 3 methods : 
+- /transactions/new : to create a new transaction to a block
+- /mine : to tell our server to mine a new block
+- /chain : to return the full Blockchain
+### Mining Steps : 
+- Calculate proof of work
+- Reward the miner, by adding a transaction granting 1 coin to the miner
+- Forge the new block and add it to the chain.
