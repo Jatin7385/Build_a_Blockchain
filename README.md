@@ -35,3 +35,15 @@ Our api consists of 3 methods :
 ## Consensus 
 The whole point of a blockchain is that it should be decentralized. But if they are decentralized, then how do we ensure that they all reflect the same chain? This is called the consensus problem. To apply more than 1 node in our blockchain, we'll have to apply the consensus algorithm
 
+### Registering new nodes
+First, we need a way to let a node know about neighbouring nodes on the network. Since each node on our network should keep a registry of other nodes on the network, we are going to have to create more endoints.
+- /nodes/register : to accept a list of new nodes in the form of URL's
+- /nodes/resolve : to implement our consensus algorithm to resolve any conflicts --to ensure a node has the correct chain.
+
+To hold the set of nodes, we will be using a set(), to ensure that one node doesn't appear more than once irrespective of how many times we add it.
+
+### Implementing Consensus Algorithm
+The first method valid_chain is responsible for looping over the nodes and checking if the hash value and the proof of work of each node is valid.
+The second method resolve_conflicts(), loops through all the nodes, gets its chain from the api endpoint. If we find a node which has a valid chain whose length is greater than the current chain, then we replace our chain.
+
+
