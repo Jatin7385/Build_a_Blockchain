@@ -41,7 +41,7 @@ class Blockchain():
         #Contents of each transaction : sender, recepient, amount
         self.current_transactions.append({
             "sender" : sender,
-            "recepient" : recepient,
+            "recipient" : recepient,
             "amount" : amount
         })
 
@@ -51,6 +51,12 @@ class Blockchain():
     @property
     def last_block(self):
         return self.chain[-1]
+
+    @staticmethod
+    def hash(block):
+        # We must make sure that the Dictionary is Ordered, or we'll have inconsistent hashes
+        block_string = json.dumps(block, sort_keys=True).encode()
+        return hashlib.sha256(block_string).hexdigest()
 
 
 ##################################################IMPLEMENTING PROOF OF WORK###################################################################
@@ -63,7 +69,7 @@ class Blockchain():
         return proof
 
     @staticmethod
-    def is_valid(self, p, p1):
+    def is_valid(p, p1):
         guess = f'{p}{p1}'.encode()
         hash_val = hashlib.sha256(guess).hexdigest()
         return hash_val[:4] == "0000" # Checking if the leading 4 digits of the hash value are 0000. If so, then it is valid
@@ -111,14 +117,15 @@ def mine():
 @app.route('/transactions/new',methods = ['POST'])
 def new_transactions():
     values = request.get_json()
-
+    print("Hello")
+    print(values)
     #Check that the required fields are in the POST'ed Data
     required = ['sender', 'recipient', 'amount']
     if not all(k in values for k in required):
         return 'Missing values', 400
 
     #Create a new transaction
-    index = blockchain.new_transaction(values['sender'],values['recepient'],values['amount'])
+    index = blockchain.new_transaction(values['sender'],values['recipient'],values['amount'])
     response = {'message': f'Transaction will be added to Block {index}'}
     return jsonify(response), 201
 
