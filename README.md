@@ -31,3 +31,7 @@ Our api consists of 3 methods :
 - Calculate proof of work
 - Reward the miner, by adding a transaction granting 1 coin to the miner
 - Forge the new block and add it to the chain.
+
+## Consensus 
+The whole point of a blockchain is that it should be decentralized. But if they are decentralized, then how do we ensure that they all reflect the same chain? This is called the consensus problem. To apply more than 1 node in our blockchain, we'll have to apply the consensus algorithm
+
