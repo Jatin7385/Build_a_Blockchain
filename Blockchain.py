@@ -194,7 +194,7 @@ def chain():
     return jsonify(response),200
 
 
-@app.route('/nodes/register', methods=['POST'])
+@app.route('/nodes/register', methods=['GET', 'POST'])
 def register_nodes():
     values = request.get_json()
 
@@ -203,7 +203,7 @@ def register_nodes():
         return "Error: Please supply a valid list of nodes", 400
 
     for node in nodes:
-        blockchain.register_node(node)
+        blockchain.register_nodes(node)
 
     response = {
         'message': 'New nodes have been added',
