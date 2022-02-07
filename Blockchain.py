@@ -100,14 +100,14 @@ class Blockchain():
         for node in neighbors:
             response = requests.get(f'http://{node}/chain')
         
-        if response.status_code == 200:
-            length = response.json()['length']
-            chain = response.json()['chain']
+            if response.status_code == 200:
+                length = response.json()['length']
+                chain = response.json()['chain']
 
-            #Checking if the length of this node's chain is greater than our node's chain
-            if length > max_length and self.valid_chain(chain):
-                new_chain = chain
-                max_length = length
+                #Checking if the length of this node's chain is greater than our node's chain
+                if length > max_length and self.valid_chain(chain):
+                    new_chain = chain
+                    max_length = length
 
         #Replace our chain if we discover a new, valid chain longer than ours
         if new_chain:
@@ -212,7 +212,7 @@ def register_nodes():
     return jsonify(response), 201
 
 
-@app.route('/nodes/resolve', methods=['GET'])
+@app.route('/nodes/resolve', methods=['GET','POST'])
 def consensus():
     replaced = blockchain.resolve_conflicts()
 
